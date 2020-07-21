@@ -11,15 +11,36 @@ user = {
     username: String,
     name: String,
     password: String,
-    savedBowls: [], // list of Bowl object IDs
-    orderHistory: [], // list of Order object IDs
+    savedBowls: [
+        {
+            type: mongoose.Schema.Type.ObjectID,
+            ref: 'Bowl'
+        }
+    ], 
+    orderHistory: [
+        {
+            type: mongoose.Schema.Type.ObjectID,
+            ref: 'Order'
+        }
+    ], 
     id: ObjectID, // from DB
 }
 
 bowl = {
-    oatType: String,
-    milkType: String,
-    toppings: [], // list of Ingredient name IDs where Ingredient.type !== oat or milk
+    oatType: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ingredient',
+    },
+    milkType: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ingredient',
+    },
+    toppings: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Ingredient',
+        },
+    ],
     featured: Boolean,
     onMenu: Boolean,
     id: ObjectID, // from DB
@@ -28,7 +49,16 @@ bowl = {
 order = {
     date: new Date(),
     price: Number,
-    bowls: [], // list of Bowl object IDs
+    bowls: [
+        {
+            type: mongoose.Schema.Type.ObjectID,
+            ref: 'Bowl'
+        }
+    ], 
+    user: {
+        type: mongoose.Schema.Type.ObjectID,
+        ref: 'User'
+    },
     id: ObjectID, // from DB
 }
 

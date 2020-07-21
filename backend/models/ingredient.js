@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 
-const url = process.env.MONGODB_URI
+/*
+let url = process.env.MONGODB_URI
+
+if (process.env.NODE_ENV === 'test') {
+    url = process.env.TEST_MONGODB_URI
+}
 
 console.log('connecting to ', url)
 
@@ -12,6 +17,7 @@ mongoose
     .catch((error) => {
         console.log('error connecting to mongoDB: ', error.message)
     })
+*/
 
 const ingredientSchema = new mongoose.Schema({
     name: {

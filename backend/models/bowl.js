@@ -13,45 +13,44 @@ console.log('connecting to ', url)
 mongoose
     .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-        console.log('user model connected to mongoDB')
+        console.log('bowl model connected to mongoDB')
     })
     .catch((error) => {
         console.log('error connecting to mongoDB: ', error.message)
     })
 */
 
-const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
+const bowlSchema = new mongoose.Schema({
+    oatType: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ingredient',
     },
-    name: String,
-    /*passwordHash: {
-        type: String,
-        minlength: 4,
-        required: true,
-    },*/
-    savedBowls: [
+    milkType: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ingredient',
+    },
+    toppings: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Bowl',
+            ref: 'Ingredient',
         },
     ],
-    orderHistory: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Order',
-        },
-    ],
+    featured: {
+        type: Boolean,
+        default: false,
+    },
+    onMenu: {
+        type: Boolean,
+        default: false,
+    },
 })
 
-userSchema.set('toJSON', {
+bowlSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
         delete returnedObject._id
         delete returnedObject.__v
-        delete returnedObject.passwordHash
     },
 })
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('Bowl', bowlSchema)
