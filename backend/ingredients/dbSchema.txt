@@ -1,0 +1,50 @@
+overview of database schema for reference
+
+db = {
+    allUsers: [], // list of all User object IDs
+    allOrders: [], // list of all Order object IDs
+    allIngredients: [], // list of all Ingredient name IDs
+    presetBowls: [], // list of all Bowl object IDs (of bowls defined so far)
+}
+
+user = {
+    username: String,
+    name: String,
+    password: String,
+    savedBowls: [], // list of Bowl object IDs
+    orderHistory: [], // list of Order object IDs
+    id: ObjectID, // from DB
+}
+
+bowl = {
+    oatType: String,
+    milkType: String,
+    toppings: [], // list of Ingredient name IDs where Ingredient.type !== oat or milk
+    featured: Boolean,
+    onMenu: Boolean,
+    id: ObjectID, // from DB
+}
+
+order = {
+    date: new Date(),
+    price: Number,
+    bowls: [], // list of Bowl object IDs
+    id: ObjectID, // from DB
+}
+
+ingredient = {
+    name: String, // use as ID
+    pricePerUnit: Number,
+    type: String, // one of: oat, milk, nut, nut_butter, fresh_fruit, dried_fruit, sweetener, spice
+    nutritionInfo: {
+        servingSize: Number, // actually, since serving size is uniform, leave this out
+        calories: Number,
+        fatCalories: Number,
+        fatGrams: Number,
+        totalCarbGrams: Number,
+        sugarGrams: Number,
+        fiber: Number,
+        // etc
+    },
+    id: ObjectID, // from DB
+}
