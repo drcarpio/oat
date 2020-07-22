@@ -1,36 +1,19 @@
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 mongoose.set('useFindAndModify', false)
-
-/*
-let url = process.env.MONGODB_URI
-
-if (process.env.NODE_ENV === 'test') {
-    url = process.env.TEST_MONGODB_URI
-}
-
-console.log('connecting to ', url)
-
-mongoose
-    .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log('user model connected to mongoDB')
-    })
-    .catch((error) => {
-        console.log('error connecting to mongoDB: ', error.message)
-    })
-*/
 
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
+        unique: true,
     },
     name: String,
-    /*passwordHash: {
+    passwordHash: {
         type: String,
         minlength: 4,
         required: true,
-    },*/
+    },
     savedBowls: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -44,6 +27,8 @@ const userSchema = new mongoose.Schema({
         },
     ],
 })
+
+userSchema.plugin(uniqueValidator)
 
 userSchema.set('toJSON', {
     transform: (document, returnedObject) => {

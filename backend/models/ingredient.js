@@ -1,24 +1,5 @@
 const mongoose = require('mongoose')
 
-/*
-let url = process.env.MONGODB_URI
-
-if (process.env.NODE_ENV === 'test') {
-    url = process.env.TEST_MONGODB_URI
-}
-
-console.log('connecting to ', url)
-
-mongoose
-    .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log('ingredient model connected to mongoDB')
-    })
-    .catch((error) => {
-        console.log('error connecting to mongoDB: ', error.message)
-    })
-*/
-
 const ingredientSchema = new mongoose.Schema({
     name: {
         type: String,

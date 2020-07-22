@@ -1,48 +1,42 @@
 const ordersRouter = require('express').Router()
 const Order = require('../models/order')
+const User = require('../models/user')
 
-ordersRouter.get('/', (request, response) => {
-    Order.find({}).then((orders) => {
-        response.json(orders)
-    })
+ordersRouter.get('/', async (request, response) => {
+    const orders = await Order.find({})
+    response.json(orders)
 })
 
-ordersRouter.get('/:id', (request, response, next) => {
-    Order.findById(request.params.id)
-        .then((order) => {
-            if (order) {
-                response.json(order)
-            } else {
-                response.status(404).end()
-            }
-        })
-        .catch((error) => next(error))
+ordersRouter.get('/:id', async (request, response) => {
+    const order = await Order.findById(request.params.id)
+    if (order) {
+        response.json(order)
+    } else {
+        response.status(404).end()
+    }
 })
 
-ordersRouter.post('/', (request, response, next) => {
+ordersRouter.post('/', async (request, response) => {
     const body = request.body
+
+    const user = await User.findById(body.userId)
 
     const order = new Order({
         date: new Date(),
-        price: body.price, // || TODO: calculate from body.array values OR implement that on frontend and just send that value with request
-        bowls: body.bowls,
-        user: body.user,
+        price: body.price,
+        bowls: body.bowls || [],
+        user: user._id,
     })
 
-    order
-        .save()
-        .then((savedOrder) => {
-            response.json(savedOrder)
-        })
-        .catch((error) => next(error))
+    const savedOrder = await order.save()
+    user.orderHistory = user.orderHistory.concat(savedOrder._id)
+    await user.save()
+    response.json(savedOrder)
 })
 
-ordersRouter.delete('/:id', (request, response, next) => {
-    Order.findByIdAndRemove(request.params.id)
-        .then(() => {
-            response.status(204).end()
-        })
-        .catch((error) => next(error))
+ordersRouter.delete('/:id', async (request, response) => {
+    await Order.findByIdAndRemove(request.params.id)
+    response.status(204).end()
 })
 
 // no reason to add put functionality for orders

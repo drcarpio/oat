@@ -6,19 +6,16 @@ bowlsRouter.get('/', async (request, response) => {
     response.json(bowls)
 })
 
-bowlsRouter.get('/:id', (request, response, next) => {
-    Bowl.findById(request.params.id)
-        .then((bowl) => {
-            if (bowl) {
-                response.json(bowl)
-            } else {
-                response.status(404).end()
-            }
-        })
-        .catch((error) => next(error))
+bowlsRouter.get('/:id', async (request, response) => {
+    const bowl = Bowl.findById(request.params.id)
+    if (bowl) {
+        response.json(bowl)
+    } else {
+        response.status(404).end()
+    }
 })
 
-bowlsRouter.post('/', (request, response, next) => {
+bowlsRouter.post('/', async (request, response) => {
     const body = request.body
 
     const bowl = new Bowl({
@@ -29,22 +26,16 @@ bowlsRouter.post('/', (request, response, next) => {
         onMenu: body.onMenu || false,
     })
 
-    bowl.save()
-        .then((savedBowl) => {
-            response.json(savedBowl)
-        })
-        .catch((error) => next(error))
+    const savedBowl = await bowl.save()
+    response.json(savedBowl)
 })
 
-bowlsRouter.delete('/:id', (request, response, next) => {
-    Bowl.findByIdAndRemove(request.params.id)
-        .then(() => {
-            response.status(204).end()
-        })
-        .catch((error) => next(error))
+bowlsRouter.delete('/:id', async (request, response) => {
+    await Bowl.findByIdAndRemove(request.params.id)
+    response.status(204).end()
 })
 
-// TODO: implement logic for toggling featured / onMenu
+// TODO: implement async logic for toggling featured / onMenu
 bowlsRouter.put('/:id', (request, response, next) => {
     const body = request.body
 

@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 
@@ -18,10 +19,13 @@ usersRouter.get('/:id', async (request, response) => {
 usersRouter.post('/', async (request, response) => {
     const body = request.body
 
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash(body.password, saltRounds)
+
     const user = new User({
         username: body.username,
         name: body.name || '',
-        password: body.password,
+        passwordHash,
         savedBowls: [],
         orderHistory: [],
     })
@@ -39,7 +43,10 @@ usersRouter.delete('/:id', async (request, response) => {
 usersRouter.put('/:id', (request, response) => {
     const body = request.body
 
-    const user = { name: body.name }
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash(body.password, saltRounds)
+
+    const user = { name: body.name, passwordHash }
 
     const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })
     response.json(updatedUser)

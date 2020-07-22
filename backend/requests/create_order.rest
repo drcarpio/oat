@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/orders
+Content-Type: application/json
+
+{
+    "price": 8.50,
+    "userId": "5f179f488967102458286aea"
+}
