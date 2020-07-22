@@ -1,7 +1,8 @@
 POST http://localhost:3001/api/orders
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imx1ZGljb2xvIiwiaWQiOiI1ZjE3OWY0ODg5NjcxMDI0NTgyODZhZWEiLCJpYXQiOjE1OTU0MzYyNjZ9._jqnNWOJAmKya8xjKWJoOltq3HUWLFD9eygm_u7kpgQ
 
 {
-    "price": 8.50,
+    "price": 16.50,
     "userId": "5f179f488967102458286aea"
 }
