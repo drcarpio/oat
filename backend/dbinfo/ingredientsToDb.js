@@ -34,8 +34,7 @@ const ingredientSchema = new mongoose.Schema({
 })
 
 const Ingredient = mongoose.model('Ingredient', ingredientSchema)
-
-fs.readFile('./toppingsList.json', 'utf8', function (err, data) {
+fs.readFile('./dbinfo/toppingsList.json', 'utf8', function (err, data) {
     data = JSON.parse(data)
     for (var item of data) {
         const newIngredient = new Ingredient(item)
@@ -45,7 +44,7 @@ fs.readFile('./toppingsList.json', 'utf8', function (err, data) {
     }
 })
 
-fs.readFile('./milkList.json', 'utf8', function (err, data) {
+fs.readFile('./dbinfo/milkList.json', 'utf8', function (err, data) {
     data = JSON.parse(data)
     for (var item of data) {
         const newIngredient = new Ingredient(item)
@@ -55,7 +54,7 @@ fs.readFile('./milkList.json', 'utf8', function (err, data) {
     }
 })
 
-fs.readFile('./oatList.json', 'utf8', function (err, data) {
+fs.readFile('./dbinfo/oatList.json', 'utf8', function (err, data) {
     data = JSON.parse(data)
     for (var item of data) {
         const newIngredient = new Ingredient(item)
