@@ -16,7 +16,6 @@ const ingredientSchema = new mongoose.Schema({
     },
     nutritionInfo: {
         calories: Number,
-        fatCalories: Number,
         fatGrams: Number,
         saturatedFat: Number,
         cholesterol: Number,

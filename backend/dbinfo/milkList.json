@@ -5,7 +5,6 @@
         "pricePerUnit": 2.0,
         "nutritionInfo": {
             "calories": 75,
-            "fatCalories": 35,
             "fatGrams": 4,
             "saturatedFat": 2.5,
             "cholesterol": 18,
@@ -28,7 +27,6 @@
         "pricePerUnit": 2.0,
         "nutritionInfo": {
             "calories": 65,
-            "fatCalories": 22,
             "fatGrams": 2.5,
             "saturatedFat": 1.5,
             "cholesterol": 10,
@@ -51,7 +49,6 @@
         "pricePerUnit": 2.0,
         "nutritionInfo": {
             "calories": 42,
-            "fatCalories": 0,
             "fatGrams": 0,
             "saturatedFat": 0,
             "cholesterol": 18,
@@ -74,7 +71,6 @@
         "pricePerUnit": 2.0,
         "nutritionInfo": {
             "calories": 60,
-            "fatCalories": 23,
             "fatGrams": 2.5,
             "saturatedFat": 0.25,
             "cholesterol": 0,
@@ -88,10 +84,7 @@
             "vitC": 0.0,
             "vitD": 0.1,
             "calcium": 0.125,
-            "iron": 0.01,
-            "riboflavin": 0.225,
-            "vitB12": 0.25,
-            "phosporus": 0.1
+            "iron": 0.01
         }
     },
     {
@@ -100,7 +93,6 @@
         "pricePerUnit": 2.0,
         "nutritionInfo": {
             "calories": 30,
-            "fatCalories": 11,
             "fatGrams": 1.2,
             "saturatedFat": 2.5,
             "cholesterol": 0,
@@ -123,7 +115,6 @@
         "pricePerUnit": 2.0,
         "nutritionInfo": {
             "calories": 20,
-            "fatCalories": 14,
             "fatGrams": 1.5,
             "saturatedFat": 1.5,
             "cholesterol": 0,
@@ -146,7 +137,6 @@
         "pricePerUnit": 2.0,
         "nutritionInfo": {
             "calories": 12,
-            "fatCalories": 9,
             "fatGrams": 1,
             "saturatedFat": 0,
             "cholesterol": 0,
@@ -169,7 +159,6 @@
         "pricePerUnit": 2.0,
         "nutritionInfo": {
             "calories": 0,
-            "fatCalories": 0,
             "fatGrams": 0,
             "saturatedFat": 0,
             "cholesterol": 0,
