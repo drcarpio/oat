@@ -28,7 +28,7 @@ const Ingredient = ({ addIngredient, ingredient }) => {
     return (
         <div>
             <p>{ingredient.name.replace(/_/g, ' ').toLowerCase()}</p>
-            <p>{ingredient.pricePerUnit}</p>
+            <p>price: ${ingredient.pricePerUnit}</p>
             <NutritionInfo nutrition={ingredient.nutritionInfo} />
             <button onClick={addIngredient}>add to bowl</button>
         </div>
