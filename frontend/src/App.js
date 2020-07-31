@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react'
+
 import IngredientList from './components/IngredientList'
+import BowlList from './components/BowlList'
 import Bowl from './components/Bowl'
+
 import ingredientService from './services/ingredients'
 import loginService from './services/login'
+import bowlService from './services/bowls'
 
 const App = () => {
     const [bowl, setBowl] = useState([])
+    const [oatType, setOatType] = useState(null)
+    const [milkType, setMilkType] = useState(null)
     const [ingredients, setIngredients] = useState([])
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -18,7 +24,29 @@ const App = () => {
     }, [])
 
     const addIngredient = (ingredientId) => {
-        setBowl(bowl.concat(ingredientId))
+        if (
+            ingredients.filter(
+                (ingredient) => ingredient.id === ingredientId
+            )[0].type === 'oat'
+        ) {
+            let newBowl = oatType
+                ? bowl.filter((ingredient) => ingredient !== oatType)
+                : bowl
+            setOatType(ingredientId)
+            setBowl(newBowl.concat(ingredientId))
+        } else if (
+            ingredients.filter(
+                (ingredient) => ingredient.id === ingredientId
+            )[0].type === 'milk'
+        ) {
+            let newBowl = milkType
+                ? bowl.filter((ingredient) => ingredient !== milkType)
+                : bowl
+            setMilkType(ingredientId)
+            setBowl(newBowl.concat(ingredientId))
+        } else {
+            setBowl(bowl.concat(ingredientId))
+        }
     }
 
     const removeIngredient = (ingredientId) => {
@@ -30,6 +58,30 @@ const App = () => {
 
     const addBowl = () => {
         console.log(bowl)
+        if (!oatType || !milkType) {
+            // TODO: handle empty bowl
+            console.log('need to select oat and milk types')
+        } else {
+            try {
+                const newBowlObject = {
+                    oatType: oatType,
+                    milkType: milkType,
+                    toppings: bowl.filter(
+                        (ingredient) =>
+                            ingredient !== oatType && ingredient !== milkType
+                    ),
+                    featured: false,
+                    onMenu: true,
+                }
+                bowlService.create(newBowlObject)
+                setOatType(null)
+                setMilkType(null)
+                setBowl([])
+            } catch (exception) {
+                // TODO: handle this error
+                console.log('problem adding bowl')
+            }
+        }
     }
 
     const handleLogin = async (event) => {
@@ -86,6 +138,7 @@ const App = () => {
                 addIngredient={addIngredient}
                 ingredients={ingredients}
             />
+            <BowlList ingredients={ingredients} user={user} />
         </div>
     )
 }

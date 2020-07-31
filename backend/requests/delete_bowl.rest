@@ -1,0 +1,1 @@
+DELETE http://localhost:3001/api/bowls/5f2087366ed376056f9094f0

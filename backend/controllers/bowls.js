@@ -3,6 +3,9 @@ const Bowl = require('../models/bowl')
 
 bowlsRouter.get('/', async (request, response) => {
     const bowls = await Bowl.find({})
+        .populate('oatType', { name: 1 })
+        .populate('milkType', { name: 1 })
+        .populate('toppings', { name: 1 })
     response.json(bowls)
 })
 

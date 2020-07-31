@@ -35,7 +35,7 @@ const deleteBowl = async (id) => {
     }
 
     const response = await axios.delete(`${baseUrl}/${id}`, config)
-    return repsonse.data
+    return response.data
 }
 
 export default { getAll, create, update, deleteBowl, setToken }

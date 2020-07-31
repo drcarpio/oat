@@ -1,0 +1,11 @@
+POST http://localhost:3001/api/bowls
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imx1ZGljb2xvIiwiaWQiOiI1ZjE3OWY0ODg5NjcxMDI0NTgyODZhZWEiLCJpYXQiOjE1OTU0MzYyNjZ9._jqnNWOJAmKya8xjKWJoOltq3HUWLFD9eygm_u7kpgQ
+
+{
+    "oatType": "5f1b51f278f1e10bcc401730",
+    "milkType": "5f1b51f278f1e10bcc401728",
+    "toppings": ["5f1b51f278f1e10bcc401711", "5f1b51f278f1e10bcc401714", "5f1b51f278f1e10bcc401718"],
+    "onMenu": false,
+    "featured": false
+}
