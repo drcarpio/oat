@@ -1,14 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import NutritionInfo from './NutritionInfo'
-import bowlService from '../services/bowls'
 
-const Bowl = ({
-    bowl,
-    ingredients,
-    removeIngredient,
-    addBowl,
-    bowlsAfterDelete,
-}) => {
+const Bowl = ({ bowl, ingredients, removeIngredient, addBowl }) => {
     const getIngredientName = (ingredientId) => {
         const name = ingredients.filter(
             (ingredient) => ingredient.id === ingredientId
@@ -49,22 +42,18 @@ const Bowl = ({
     return (
         <div>
             <p>total price: {getTotalPrice()}</p>
-            {addBowl ? <button onClick={addBowl}>add bowl</button> : null}
+            <button onClick={addBowl}>add bowl</button>
             <div>
                 bowl contents:{' '}
                 {bowl.map(function (ingredientId, i) {
                     return (
                         <div key={i}>
                             {getIngredientName(ingredientId)}
-                            {removeIngredient ? (
-                                <button
-                                    onClick={() =>
-                                        removeIngredient(ingredientId)
-                                    }
-                                >
-                                    remove
-                                </button>
-                            ) : null}
+                            <button
+                                onClick={() => removeIngredient(ingredientId)}
+                            >
+                                remove
+                            </button>
                         </div>
                     )
                 })}

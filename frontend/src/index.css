@@ -1,0 +1,18 @@
+.error {
+    color: red;
+    background: white;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.good {
+    color: cornflowerblue;
+    background: white;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
