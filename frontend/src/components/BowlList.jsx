@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import bowlService from '../services/bowls'
+
 import NutritionInfo from './NutritionInfo'
+
+import bowlService from '../services/bowls'
+import userService from '../services/users'
 
 const PresavedBowl = ({
     bowl,
@@ -8,8 +11,10 @@ const PresavedBowl = ({
     id,
     onMenu,
     featured,
+    saveBowl,
     removeBowl,
     bowlsAfterDelete,
+    user,
 }) => {
     const getIngredientName = (ingredientId) => {
         const name = ingredients.filter(
@@ -67,11 +72,20 @@ const PresavedBowl = ({
                 <NutritionInfo nutrition={getTotalNutrition()} />
             </div>
             <button onClick={() => removeBowl(id)}>delete bowl</button>
+            {user ? (
+                <button onClick={() => saveBowl(id)}>add to saved bowls</button>
+            ) : null}
         </div>
     )
 }
 
-const BowlList = ({ ingredients, user }) => {
+const BowlList = ({
+    ingredients,
+    user,
+    setUser,
+    setNotification,
+    setIsGoodNotification,
+}) => {
     const [bowls, setBowls] = useState([])
     useEffect(() => {
         bowlService.getAll().then((bowls) => setBowls(bowls))
@@ -83,6 +97,34 @@ const BowlList = ({ ingredients, user }) => {
                 .deleteBowl(id)
                 .then(() => {
                     bowlsAfterDelete(id)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    }
+
+    const saveBowl = (id) => {
+        if (user.savedBowls.includes(id)) {
+            setNotification('bowl is already saved')
+            setIsGoodNotification(false)
+            setTimeout(() => {
+                setNotification(null)
+            }, 3000)
+        } else {
+            const updatedUser = {
+                ...user,
+                savedBowls: user.savedBowls.concat(id),
+            }
+            userService
+                .update(user.id, updatedUser)
+                .then((response) => {
+                    setNotification(`bowl added to saved bowls`)
+                    setIsGoodNotification(true)
+                    setTimeout(() => {
+                        setNotification(null)
+                    }, 3000)
+                    setUser(updatedUser)
                 })
                 .catch((error) => {
                     console.log(error)
@@ -107,10 +149,12 @@ const BowlList = ({ ingredients, user }) => {
                     ingredients={ingredients}
                     key={bowl.id}
                     id={bowl.id}
+                    saveBowl={saveBowl}
                     removeBowl={removeBowl}
                     bowlsAfterDelete={bowlsAfterDelete}
                     onMenu={bowl.onMenu}
                     featured={bowl.featured}
+                    user={user}
                 />
             ))}
         </div>

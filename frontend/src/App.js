@@ -9,6 +9,7 @@ import Notification from './components/Notification'
 import loginService from './services/login'
 import bowlService from './services/bowls'
 import ingredientService from './services/ingredients'
+import userService from './services/users'
 
 const Home = ({ notification, isGoodNotification }) => {
     return (
@@ -40,6 +41,7 @@ const App = () => {
 
             window.localStorage.setItem('loggedOatUser', JSON.stringify(user))
             bowlService.setToken(user.token)
+            userService.setToken(user.token)
             setUser(user)
         } catch (exception) {
             setNotification('wrong credentials')
@@ -53,6 +55,10 @@ const App = () => {
     return (
         <Router>
             <div>
+                <Notification
+                    message={notification}
+                    isGood={isGoodNotification}
+                />
                 <Link style={padding} to="/">
                     home
                 </Link>
@@ -79,7 +85,13 @@ const App = () => {
                     />
                 </Route>
                 <Route path="/menu">
-                    <BowlList ingredients={ingredients} user={user} />
+                    <BowlList
+                        ingredients={ingredients}
+                        user={user}
+                        setUser={setUser}
+                        setNotification={setNotification}
+                        setIsGoodNotification={setIsGoodNotification}
+                    />
                 </Route>
                 <Route path="/profile">
                     {user ? (
