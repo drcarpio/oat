@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useHistory,
+} from 'react-router-dom'
 
 import LoginForm from './components/LoginForm'
 import BowlBuilder from './components/BowlBuilder'
 import BowlList from './components/BowlList'
 import Notification from './components/Notification'
+import UserPage from './components/UserPage'
 
 import loginService from './services/login'
 import bowlService from './services/bowls'
@@ -24,6 +31,7 @@ const App = () => {
     const [isGoodNotification, setIsGoodNotification] = useState(false)
     const [user, setUser] = useState(null)
     const [ingredients, setIngredients] = useState([])
+    const history = useHistory()
 
     const padding = {
         padding: 5,
@@ -50,6 +58,11 @@ const App = () => {
                 setNotification(null)
             }, 3000)
         }
+    }
+
+    const handleLogout = (event) => {
+        window.localStorage.removeItem('loggedOatUser')
+        setUser(null)
     }
 
     return (
@@ -93,9 +106,13 @@ const App = () => {
                         setIsGoodNotification={setIsGoodNotification}
                     />
                 </Route>
+
                 <Route path="/profile">
                     {user ? (
-                        `${user.name} logged in`
+                        <>
+                            <UserPage user={user} />{' '}
+                            <button onClick={handleLogout}>log out</button>
+                        </>
                     ) : (
                         <LoginForm loginEvent={handleLogin} />
                     )}
@@ -105,6 +122,7 @@ const App = () => {
                         <h2>your order</h2>
                     </div>
                 </Route>
+
                 <Route path="/">
                     <Home
                         notification={notification}

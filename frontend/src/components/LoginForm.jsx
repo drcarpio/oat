@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 const LoginForm = ({ loginEvent }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const history = useHistory()
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -12,6 +14,7 @@ const LoginForm = ({ loginEvent }) => {
         })
         setUsername('')
         setPassword('')
+        history.replace('/profile')
     }
 
     return (

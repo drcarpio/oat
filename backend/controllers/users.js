@@ -19,7 +19,9 @@ usersRouter.get('/', async (request, response) => {
 })
 
 usersRouter.get('/:id', async (request, response) => {
-    const user = await User.findById(request.params.id)
+    const user = await (await User.findById(request.params.id))
+        .populate('savedBowls')
+        .populate('orderHistory')
     if (user) {
         response.json(user)
     } else {
