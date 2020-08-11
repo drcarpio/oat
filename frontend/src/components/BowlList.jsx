@@ -11,7 +11,8 @@ const PresavedBowl = ({
     id,
     onMenu,
     featured,
-    saveBowl,
+    toggleOnMenu,
+    toggleSaveBowl,
     removeBowl,
     bowlsAfterDelete,
     user,
@@ -56,7 +57,18 @@ const PresavedBowl = ({
     return (
         <div>
             <p>total price: {getTotalPrice()}</p>
-            <p>on menu? {onMenu ? 'bowl is on menu' : 'bowl is not on menu'}</p>
+            <p>
+                on menu?{' '}
+                {onMenu ? (
+                    <button onClick={() => toggleOnMenu(id)}>
+                        remove from menu
+                    </button>
+                ) : (
+                    <button onClick={() => toggleOnMenu(id)}>
+                        add to menu
+                    </button>
+                )}
+            </p>
             <p>
                 featured?{' '}
                 {featured ? 'bowl is featured' : 'bowl is not featured'}
@@ -73,7 +85,15 @@ const PresavedBowl = ({
             </div>
             <button onClick={() => removeBowl(id)}>delete bowl</button>
             {user ? (
-                <button onClick={() => saveBowl(id)}>add to saved bowls</button>
+                !user.savedBowls.includes(id) ? (
+                    <button onClick={() => toggleSaveBowl(id)}>
+                        add to saved bowls
+                    </button>
+                ) : (
+                    <button onClick={() => toggleSaveBowl(id)}>
+                        removed from saved bowls
+                    </button>
+                )
             ) : null}
         </div>
     )
@@ -104,32 +124,53 @@ const BowlList = ({
         }
     }
 
-    const saveBowl = (id) => {
+    const toggleOnMenu = (id) => {
+        let target = bowls.filter((bowl) => bowl.id === id)[0]
+        const updatedBowl = { ...target, onMenu: !target.onMenu }
+        console.log(target)
+        console.log(updatedBowl)
+        console.log(
+            'problem: cast to object id fails for ingredients inside bowl'
+        )
+        /*
+        bowlService
+            .update(id, updatedBowl)
+            .then((response) => {
+                setBowls(
+                    bowls.map((bowl) => (bowl.id !== id ? bowl : updatedBowl))
+                )
+            })
+            .catch((error) => console.log(error))
+            */
+    }
+
+    const toggleSaveBowl = (id) => {
+        let updatedUser = null
         if (user.savedBowls.includes(id)) {
-            setNotification('bowl is already saved')
-            setIsGoodNotification(false)
-            setTimeout(() => {
-                setNotification(null)
-            }, 3000)
+            updatedUser = {
+                ...user,
+                savedBowls: user.savedBowls.filter((bowl) => bowl !== id),
+            }
         } else {
-            const updatedUser = {
+            updatedUser = {
                 ...user,
                 savedBowls: user.savedBowls.concat(id),
             }
-            userService
-                .update(user.id, updatedUser)
-                .then((response) => {
-                    setNotification(`bowl added to saved bowls`)
-                    setIsGoodNotification(true)
-                    setTimeout(() => {
-                        setNotification(null)
-                    }, 3000)
-                    setUser(updatedUser)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
         }
+
+        userService
+            .update(user.id, updatedUser)
+            .then((response) => {
+                setNotification('saved bowls updated successfully')
+                setIsGoodNotification(true)
+                setTimeout(() => {
+                    setNotification(null)
+                }, 3000)
+                setUser(updatedUser)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     const bowlsAfterDelete = (id) => {
@@ -149,7 +190,8 @@ const BowlList = ({
                     ingredients={ingredients}
                     key={bowl.id}
                     id={bowl.id}
-                    saveBowl={saveBowl}
+                    toggleOnMenu={toggleOnMenu}
+                    toggleSaveBowl={toggleSaveBowl}
                     removeBowl={removeBowl}
                     bowlsAfterDelete={bowlsAfterDelete}
                     onMenu={bowl.onMenu}
