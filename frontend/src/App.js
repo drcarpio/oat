@@ -22,7 +22,11 @@ const Home = ({ notification, isGoodNotification }) => {
     return (
         <div>
             <Notification message={notification} isGood={isGoodNotification} />
-            <h2>Oat app</h2>
+            <h2>Oat</h2>
+            <p>
+                This is an app for building bowls of oatmeal and saving them to
+                the server
+            </p>
         </div>
     )
 }
@@ -84,9 +88,6 @@ const App = () => {
                 <Link style={padding} to="/profile">
                     profile
                 </Link>
-                <Link style={padding} to="/basket">
-                    basket
-                </Link>
             </div>
 
             <Switch>
@@ -116,11 +117,6 @@ const App = () => {
                     ) : (
                         <LoginForm loginEvent={handleLogin} />
                     )}
-                </Route>
-                <Route path="/basket">
-                    <div>
-                        <h2>your order</h2>
-                    </div>
                 </Route>
 
                 <Route path="/">

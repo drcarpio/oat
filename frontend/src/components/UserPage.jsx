@@ -19,9 +19,6 @@ const UserPage = ({ user }) => {
             <p>{user.username} logged in</p>
             <h3>saved bowls</h3>
             <UserBowls targetBowls={user.savedBowls} />
-            <h3>order history</h3>
-            <UserBowls targetBowls={user.orderHistory} />
-            <h3>user stats</h3>
         </div>
     )
 }

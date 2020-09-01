@@ -7,8 +7,8 @@ const LoginForm = ({ loginEvent }) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         loginEvent({
-            username: username,
-            password: password,
+            username: username || 'lotad',
+            password: password || 'button',
         })
         setUsername('')
         setPassword('')
@@ -39,6 +39,9 @@ const LoginForm = ({ loginEvent }) => {
                 </div>
                 <button id="login-button" type="submit">
                     login
+                </button>
+                <button id="example-login" type="submit">
+                    example login
                 </button>
             </form>
         </div>
