@@ -26,7 +26,7 @@ const NutritionInfo = ({ nutrition }) => {
 
 const Ingredient = ({ addIngredient, ingredient }) => {
     return (
-        <div>
+        <div className='container-item'>
             <p>{ingredient.name.replace(/_/g, ' ').toLowerCase()}</p>
             <p>price: ${ingredient.pricePerUnit}</p>
             <NutritionInfo nutrition={ingredient.nutritionInfo} />
@@ -45,7 +45,7 @@ const IngredientType = ({ name, ingredients, addIngredient }) => {
     }
 
     return (
-        <div>
+        <div className='container'>
             <div style={hideWhenVisible}>
                 <h3>{name}</h3>
                 <button onClick={toggleVisibility}>show {name} options</button>
@@ -53,13 +53,16 @@ const IngredientType = ({ name, ingredients, addIngredient }) => {
             <div style={showWhenVisible}>
                 <h3>{name}</h3>
                 <button onClick={toggleVisibility}>hide {name} options</button>
-                {ingredients.map((ingredient) => (
-                    <Ingredient
-                        key={ingredient.id}
-                        addIngredient={() => addIngredient(ingredient.id)}
-                        ingredient={ingredient}
-                    />
-                ))}
+                <div>
+                    {ingredients.map((ingredient) => (
+                        <Ingredient
+                            key={ingredient.id}
+                            addIngredient={() => addIngredient(ingredient.id)}
+                            ingredient={ingredient}
+                        />
+                    ))}
+                </div>
+                
             </div>
         </div>
     )

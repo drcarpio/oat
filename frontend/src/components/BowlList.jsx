@@ -52,7 +52,7 @@ const PresavedBowl = ({
     }
 
     return (
-        <div>
+        <div className='container-item'>
             <p>total price: {getTotalPrice()}</p>
 
             <div>
@@ -141,7 +141,7 @@ const BowlList = ({
     }
 
     return (
-        <div>
+        <div className='container'>
             <h2>presaved bowls</h2>
             {bowls.map((bowl) => (
                 <PresavedBowl
