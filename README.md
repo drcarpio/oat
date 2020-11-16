@@ -1,2 +1,2 @@
 # oat
-a web app for ordering custom bowls of oatmeal
+a full-stack web app for customizing bowls of oatmeal
