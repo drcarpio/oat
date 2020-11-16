@@ -3,3 +3,4 @@ node_modules
 .eslintrc.js
 jest.config.js
 tests/test_reference.js
+.DS_Store
