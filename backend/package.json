@@ -12,6 +12,7 @@
     "license": "ISC",
     "dependencies": {
         "bcrypt": "^5.0.0",
+        "bl": ">=2.2.1",
         "cors": "^2.8.5",
         "cross-env": "^7.0.2",
         "dotenv": "^8.2.0",
@@ -20,8 +21,7 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.9.25",
         "mongoose-unique-validator": "^2.0.3",
-        "morgan": "^1.10.0",
-        "bl": ">=2.2.1"
+        "morgan": "^1.10.0"
     },
     "devDependencies": {
         "eslint": "^7.5.0",
