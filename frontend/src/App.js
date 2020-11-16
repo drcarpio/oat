@@ -25,7 +25,7 @@ const Home = ({ notification, isGoodNotification }) => {
             <h2>Oat</h2>
             <p>
                 This is an app for building bowls of oatmeal and saving them to
-                the server
+                the database
             </p>
         </div>
     )

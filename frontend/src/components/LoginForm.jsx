@@ -41,7 +41,7 @@ const LoginForm = ({ loginEvent }) => {
                     login
                 </button>
                 <button id="example-login" type="submit">
-                    example login
+                    use sample login
                 </button>
             </form>
         </div>

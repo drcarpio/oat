@@ -11,7 +11,7 @@ const UserBowls = ({ targetBowls }) => {
         bowlService.getAll().then((userBowls) => setUserBowls(userBowls))
     }, [])
 
-    return <div>hello</div>
+    return <div>the component that displays the user's saved bowls is in progress</div>
 }
 const UserPage = ({ user }) => {
     return (
